@@ -1,0 +1,120 @@
+{
+  "name": "ctrlv-code-sharing",
+  "displayName": "CtrlV Code Sharing",
+  "description": "Share code instantly, right from your editor. CtrlV for VS Code eliminates the friction between writing and sharing code.",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "publisher": "Chukwuka Ibejih",
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "code-sharing",
+    "snippet",
+    "ctrlv",
+    "paste",
+    "share code"
+  ],
+  "icon": "resources/logo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ctrlv-vscode"
+  },
+  "activationEvents": [
+    "onCommand:ctrlv.shareSelection",
+    "onCommand:ctrlv.shareFile"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ctrlv.shareSelection",
+        "title": "CtrlV: Share Selected Code"
+      },
+      {
+        "command": "ctrlv.shareFile",
+        "title": "CtrlV: Share Entire File"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "ctrlv.shareSelection",
+          "when": "editorHasSelection",
+          "group": "9_cutcopypaste"
+        },
+        {
+          "command": "ctrlv.shareFile",
+          "when": "editorIsOpen",
+          "group": "9_cutcopypaste"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "CtrlV Code Sharing",
+      "properties": {
+        "ctrlv.defaultExpiration": {
+          "type": "string",
+          "enum": ["1h", "24h", "7d"],
+          "default": "24h",
+          "description": "Default expiration time for shared snippets"
+        },
+        "ctrlv.oneTimeViewDefault": {
+          "type": "boolean",
+          "default": false,
+          "description": "Default setting for one-time view links"
+        },
+        "ctrlv.copyToClipboard": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically copy the sharing URL to clipboard"
+        },
+        "ctrlv.apiUrl": {
+          "type": "string",
+          "default": "https://backend.ctrlv.codes",
+          "description": "CtrlV API URL"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "ctrlv.shareSelection",
+        "key": "ctrl+alt+v",
+        "mac": "cmd+alt+v",
+        "when": "editorHasSelection"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/uuid": "^10.0.0",
+    "@types/vscode": "^1.98.0",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.21.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.7.3",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "axios": "^1.8.3",
+    "uuid": "^11.1.0"
+  }
+}

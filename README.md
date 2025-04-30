@@ -54,6 +54,12 @@ To change these settings:
 2. Search for "CtrlV"
 3. Adjust the settings as needed
 
+## Package
+npx vsce package
+
+## Known Issue
+- The extension does not currently support .tsx files, although it does work properly with .ts files. We're working on adding TypeScript React (.tsx) file support in an upcoming release.
+
 ## Privacy and Security
 
 The CtrlV VS Code extension:
@@ -84,7 +90,7 @@ CtrlV supports syntax highlighting for all major programming languages including
 
 ## Issues and Feedback
 
-Found a bug or have a feature request? Please open an issue on our [GitHub repository](https://github.com/yourusername/ctrlv-vscode).
+Found a bug or have a feature request? Please open send an email to chukaibejih@gmail.com.
 
 ## About CtrlV
 

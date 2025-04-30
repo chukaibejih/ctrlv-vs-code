@@ -55,7 +55,7 @@ export function trackEvent(eventName: string, properties?: TelemetryEventProps):
         };
         
         // Send to your existing metrics API
-        axios.post('http://127.0.0.1:8000/api/v1/snippets/metrics/vscode/', eventData)
+        axios.post('https://backend.ctrlv.codes/api/v1/snippets/metrics/vscode/', eventData)
             .catch(error => {
                 // Silent fail for telemetry errors
                 console.error('Telemetry error:', error);

@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { registerCommands } from './commands';
 import { registerTelemetry } from './utils/telemetry';
+import { handleUri } from './handlers/uriHandler'; // New import
 
 /**
  * This method is called when the extension is activated.
@@ -13,9 +14,16 @@ export function activate(context: vscode.ExtensionContext) {
     // Set up telemetry (anonymized usage stats)
     registerTelemetry(context);
     
+    // Register URI handler for "Open in VS Code" functionality
+    context.subscriptions.push(
+        vscode.window.registerUriHandler({
+            handleUri
+        })
+    );
+    
     // Show welcome message for new installations
     const previousVersion = context.globalState.get<string>('ctrlv.version');
-    const currentVersion = vscode.extensions.getExtension('Chukwuka Ibejih.ctrlv-code-sharing')?.packageJSON.version;
+    const currentVersion = vscode.extensions.getExtension('ChukwukaIbejih.ctrlv-code-sharing')?.packageJSON.version;
     
     if (!previousVersion) {
         // First installation
@@ -30,13 +38,8 @@ export function activate(context: vscode.ExtensionContext) {
     } else if (previousVersion !== currentVersion) {
         // Version update
         vscode.window.showInformationMessage(
-            `CtrlV Code Sharing has been updated to version ${currentVersion}!`,
-            'See Changes'
-        ).then(selection => {
-            if (selection === 'See Changes') {
-                vscode.env.openExternal(vscode.Uri.parse('https://github.com/yourusername/ctrlv-vscode/blob/main/CHANGELOG.md'));
-            }
-        });
+            `CtrlV Code Sharing has been updated to version ${currentVersion}!`
+        );
     }
     
     // Store current version
